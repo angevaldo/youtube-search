@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ahgora-youtube'`, () => {
+  it(`should have as title 'ahg-youtube'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ahgora-youtube');
+    expect(app.title).toEqual('ahg-youtube');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ahgora-youtube app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('ahg-youtube app is running!');
   });
 });
