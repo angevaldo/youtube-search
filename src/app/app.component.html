@@ -1,3 +1,47 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="menuFarm">
+        <mat-icon svgIcon="barn"></mat-icon> Farm
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuField">
+        <mat-icon svgIcon="focus-field"></mat-icon> Field
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuProduction">
+        <mat-icon svgIcon="sprout"></mat-icon> Production
+      </button>
+    </mat-menu>
+
+    <mat-menu #menuFarm="matMenu">
+      <button mat-menu-item routerLink="farms/new">New Farm</button>
+      <button mat-menu-item routerLink="farms">List All Farms</button>
+    </mat-menu>
+    <mat-menu #menuField="matMenu">
+      <button mat-menu-item routerLink="fields/new">New Field</button>
+      <button mat-menu-item routerLink="fields">List Fields</button>
+    </mat-menu>
+    <mat-menu #menuProduction="matMenu">
+      <button mat-menu-item routerLink="productions/new">Register Production</button>
+      <button mat-menu-item routerLink="productions">List Productions</button>
+    </mat-menu>
+
+    &nbsp;
+    <span>Production Register</span>
+    
+    <span class="spacer"></span>
+
+    <img class="jss127" src="/assets/images/brand.3a670899.svg" alt="AEGRO">
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="page-wrapper">
+  
+
+
 <!-- Page Content -->
 <div class="container">
 
@@ -30,3 +74,9 @@
 
 </div>
 <!-- /.container -->
+
+
+</div>
+
+
+
