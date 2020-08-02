@@ -3,7 +3,7 @@ mat-drawer-container {
     background-color: white;
 }
 
-mat-drawer, mat-drawer-content {
+mat-drawer, mat-drawer-content, .no-results {
     padding: 20px; 
 }
 

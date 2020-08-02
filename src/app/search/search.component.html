@@ -11,7 +11,7 @@
     </form>
 </div>
 
-<mat-drawer-container *ngIf="videos">
+<mat-drawer-container *ngIf="videos && videos.length > 0">
     <mat-drawer mode="side" opened position="end">
 
         <form [formGroup]="formTimeExpend" novalidate>
@@ -57,10 +57,13 @@
                     <div>
                         <div class="overlay">
                             <a href="#" class="thumb" target="_blank">
-                                <img [src]="element.thumbnailsUrl" alt="thumb" class="thumbnail" width="110" height="60">
+                                <img [src]="element.thumbnailsUrl" alt="thumb" class="thumbnail" width="110"
+                                    height="60">
                             </a>
-                            <a href="https://www.youtube.com/watch?v={{element.id}}" class="time" target="_blank">{{element.duration}} min</a>
-                            <a href="https://www.youtube.com/watch?v={{element.id}}" class="playWrapper" target="_blank"></a>
+                            <a href="https://www.youtube.com/watch?v={{element.id}}" class="time"
+                                target="_blank">{{element.duration}} min</a>
+                            <a href="https://www.youtube.com/watch?v={{element.id}}" class="playWrapper"
+                                target="_blank"></a>
                         </div>
                         <h4>{{element.title}}</h4>
                         <p>{{element.description}}</p>
@@ -73,3 +76,7 @@
 
     </mat-drawer-content>
 </mat-drawer-container>
+
+<div class="no-results" *ngIf="!videos || videos.length == 0">
+    <p>Nothing to show...</p>
+</div>

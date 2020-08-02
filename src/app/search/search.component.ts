@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private matSnackBar : MatSnackBar,
+    private matSnackBar: MatSnackBar,
     private youTubeService: YoutubeService) { }
 
   ngOnInit() {
@@ -58,7 +58,20 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.videos = [];
-    this.youTubeService.getVideosByTermMock('Pj masks').forEach(element => {
+    
+    /*
+    this.youTubeService.getVideosByTerm(this.formSearch.value.term).subscribe(
+      data => {
+        for (let element of data["items"]) {
+          this.videos.push(Video.asVideoFromYoutubeJson(element))
+        }
+      },
+      err => { 
+        this.matSnackBar.open(err.error.error.message, 'Ok') 
+      });
+    */
+
+    this.youTubeService.getVideosByTermMock(this.formSearch.value.term).forEach(element => {
       this.videos.push(Video.asVideoFromYoutubeJson(element));
     });
 
