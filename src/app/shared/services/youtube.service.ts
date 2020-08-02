@@ -133,21 +133,22 @@ const videosMock: any[] = [{
 export class YoutubeService {
 
   apiKey: string = 'AIzaSyARtaa71t2GWKeXIKDul1FmvL_jUcgVWng';
+  maxResults: number = 2;
 
   constructor(public http: HttpClient) { }
 
-  getVideosByTerm(term, maxResults): Observable<Object> {
+  getVideosByTerm(term): Observable<Object> {
     let url = 'https://www.googleapis.com/youtube/v3/search'
       + '?key=' + this.apiKey
       + '&q=' + term
       + '&part=snippet'
       + '&type=video,id'
-      + '&maxResults=' + maxResults;
+      + '&maxResults=' + this.maxResults;
 
     return this.http.get(url).pipe(map((res) => { return res; }));
   }
 
-  getVideosByTermMock(term, maxResults): any[] {
+  getVideosByTermMock(term): any[] {
     return videosMock;
   }
 

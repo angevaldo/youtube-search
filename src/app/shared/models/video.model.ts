@@ -1,3 +1,5 @@
+import { CommonFunctions } from '../utils';
+
 export class Video {
 
     constructor(public title: string,
@@ -6,15 +8,22 @@ export class Video {
         public duration: number,
         public id?: string) { }
 
-    public static calculateFiveMostUsedWords(videos: Video[]): string[] {
-        return ['Prepara', 'viver', 'deixar', 'roupas', 'coloridas'];
+    static calculateFiveMostUsedWords(videos: Video[]): string[] {
+        let terms: string[] = [];
+        videos.forEach(element => {
+            terms = terms.concat(element.title.split(' ')).concat(element.description.split(' '));
+        });
+
+        terms = CommonFunctions.sortByFrequency(terms);
+
+        return [terms[0], terms[1], terms[2], terms[3], terms[4]];
     }
 
-    public static calculateDaysToWatch(videos: Video[], timeExpendDaily: number[]): number {
+    static calculateDaysToWatch(videos: Video[], timeExpendDaily: number[]): number {
         return timeExpendDaily[0] + timeExpendDaily[1];
     }
 
-    public static asVideoFromYoutubeJson(element: any): Video {
+    static asVideoFromYoutubeJson(element: any): Video {
         return new Video(element.snippet.title,
             element.snippet.description,
             element.snippet.thumbnails.default.url,

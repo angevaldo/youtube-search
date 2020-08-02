@@ -49,16 +49,16 @@ export class SearchComponent implements OnInit {
       term: ['', [Validators.required]]
     });
 
-    let arrayFields: any = {};
+    let timeExpendFields: any = {};
     for (let i = 0; i < 7; i++) {
-      arrayFields['weekDay' + i] = ['', [Validators.required, Validators.min(0), Validators.max(1440)]];
+      timeExpendFields['weekDay' + i] = ['', [Validators.required, Validators.min(0), Validators.max(1440)]];
     }
-    this.formTimeExpend = this.fb.group(arrayFields);
+    this.formTimeExpend = this.fb.group(timeExpendFields);
   }
 
   search() {
     this.videos = [];
-    this.youTubeService.getVideosByTermMock('Pj masks', 2).forEach(element => {
+    this.youTubeService.getVideosByTermMock('Pj masks').forEach(element => {
       this.videos.push(Video.asVideoFromYoutubeJson(element));
     });
 
