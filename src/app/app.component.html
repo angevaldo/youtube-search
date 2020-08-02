@@ -5,78 +5,23 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="menuFarm">
-        <mat-icon svgIcon="barn"></mat-icon> Farm
-      </button>
-      <button mat-menu-item [matMenuTriggerFor]="menuField">
-        <mat-icon svgIcon="focus-field"></mat-icon> Field
-      </button>
-      <button mat-menu-item [matMenuTriggerFor]="menuProduction">
-        <mat-icon svgIcon="sprout"></mat-icon> Production
-      </button>
+      <a mat-menu-item href="https://github.com/angevaldo/ahg-youtube" target="_blank">
+        <mat-icon svgIcon="github"></mat-icon> Github project
+      </a>
     </mat-menu>
 
-    <mat-menu #menuFarm="matMenu">
-      <button mat-menu-item routerLink="farms/new">New Farm</button>
-      <button mat-menu-item routerLink="farms">List All Farms</button>
-    </mat-menu>
-    <mat-menu #menuField="matMenu">
-      <button mat-menu-item routerLink="fields/new">New Field</button>
-      <button mat-menu-item routerLink="fields">List Fields</button>
-    </mat-menu>
-    <mat-menu #menuProduction="matMenu">
-      <button mat-menu-item routerLink="productions/new">Register Production</button>
-      <button mat-menu-item routerLink="productions">List Productions</button>
-    </mat-menu>
+    <span>Youtube Search</span>
 
-    &nbsp;
-    <span>Production Register</span>
-    
     <span class="spacer"></span>
 
-    <img class="jss127" src="/assets/images/brand.3a670899.svg" alt="AEGRO">
+    <a mat-menu-item href="http://www.youtube.com" target="_blank" title="Go to Youtube">
+      <img class="logo" src="/assets/images/logo-youtube.svg" alt="Youtube">
+    </a>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <div class="page-wrapper">
-  
 
-
-<!-- Page Content -->
-<div class="container">
-
-  <header class="bg-success text-center p-2  py-3 mb-4">
-    <div class="container">
-      <h1 class="font-weight-light text-white">
-        <i class="fab fa-youtube"></i> <a class="text-white" href="#">AHG Youtube</a></h1>
-
-    </div>
-  </header>
-
-
-  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-    <p style="font-size: 20px; color: white">Loading...</p>
-  </ngx-spinner>
-  <div class="row">
-   <div *ngFor="let video of videos" class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow vh-50">
-        <a href="https://www.youtube.com/watch?v={{video.id.videoId}}" target="_blank">
-          <img [src]="video.snippet.thumbnails.default.url" class="card-img-top" alt="..."></a>
-        <div class="card-body text-center">
-          <h5 class="card-title mb-0">{{video.contentDetails}} :: {{video.snippet.title}}</h5>
-          <div class="card-text text-black-50">{{video.snippet.description}}</div>
-         </div>
-      </div>
-    </div>
-
-  </div>
-  <!-- /.row -->
+  <router-outlet></router-outlet>
 
 </div>
-<!-- /.container -->
-
-
-</div>
-
-
-

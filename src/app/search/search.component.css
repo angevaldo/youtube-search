@@ -1,0 +1,70 @@
+mat-drawer-container {
+    min-height: 750px;
+    background-color: white;
+}
+
+mat-drawer, mat-drawer-content {
+    padding: 20px; 
+}
+
+mat-drawer {
+    width: 200px;
+}
+
+h4 {
+    font-weight: 500;
+}
+
+h4, p  {
+    margin: 5px 2px 2px 2px;
+}
+
+.thumb {
+    max-width: 110px;
+    margin: 0;
+}
+
+.form-search {
+    text-align: center; 
+    padding: 15px 5px 5px 0;
+}
+  
+.search-field {
+    width: 50%;
+}
+
+.week-field {
+    width: 45px;
+    margin-right: 9px;
+}
+
+.search-button {
+    text-align: center;
+    margin-top: 0;
+}
+
+.text-emphasys {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.most-used {
+    margin: 15px;
+    word-wrap: break-word;
+}
+
+@media only screen and (max-width: 600px) {
+    mat-drawer {
+        padding: 10px; 
+        width: 140px;
+    }
+
+    mat-drawer-content {
+        padding: 0; 
+    }
+
+    .search-button {
+        text-align: left;
+    }
+}

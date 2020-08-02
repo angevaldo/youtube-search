@@ -1,0 +1,83 @@
+<div class="form-search">
+    <form [formGroup]="formSearch" novalidate>
+        <mat-form-field class="search-field">
+            <mat-label>Search term</mat-label>
+            <input matInput placeholder="Ex. The Avengers..." formControlName="term" minlength="3">
+        </mat-form-field>
+
+        <button mat-mini-fab [disabled]="formSearch.invalid" (click)="search()" color="primary">
+            <mat-icon>search</mat-icon>
+        </button>
+    </form>
+</div>
+
+<mat-divider *ngIf="videos"></mat-divider>
+
+<mat-drawer-container *ngIf="videos">
+    <mat-drawer mode="side" opened position="end">
+
+        <form [formGroup]="formTimeExpend" novalidate>
+
+            <p class="text-muted">Inform the time to expend daily during a week:</p>
+
+            <mat-form-field class="week-field">
+                <mat-label>Sun</mat-label><input matInput min="0" type="number" formControlName="sun">
+            </mat-form-field>
+            <mat-form-field class="week-field">
+                <mat-label>Mon</mat-label><input matInput min="0" type="number" formControlName="mon">
+            </mat-form-field>
+            <mat-form-field class="week-field">
+                <mat-label>Tue</mat-label><input matInput min="0" type="number" formControlName="tue">
+            </mat-form-field>
+            <mat-form-field class="week-field">
+                <mat-label>Wed</mat-label><input matInput min="0" type="number" formControlName="wed">
+            </mat-form-field>
+            <mat-form-field class="week-field">
+                <mat-label>Thu</mat-label><input matInput min="0" type="number" formControlName="thu">
+            </mat-form-field>
+            <mat-form-field class="week-field">
+                <mat-label>Fri</mat-label><input matInput min="0" type="number" formControlName="fri">
+            </mat-form-field>
+            <mat-form-field class="week-field">
+                <mat-label>Sat</mat-label><input matInput min="0" type="number" formControlName="sat">
+            </mat-form-field>
+
+            <p class="search-button">
+                <button mat-mini-fab [disabled]="formTimeExpend.invalid" (click)="calculateTimeExpend()"
+                    color="primary">
+                    <mat-icon svgIcon="calculator"></mat-icon>
+                </button>
+            </p>
+
+            <p class="text-muted">Days needed to watch all the vídeos: </p>
+
+            <p class="text-emphasys">{{ daysToExpend }}</p>
+        </form>
+
+    </mat-drawer>
+    <mat-drawer-content>
+        <p class="most-used">Five most used words in titles and descriptions of the result: <strong> {{ fiveMostUsedWords }} </strong></p>
+
+        <mat-table [dataSource]="videos" matSort>
+            <mat-header-row *matHeaderRowDef="['video']" style="display: none;"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ['video'];"></mat-row>
+
+            <ng-container matColumnDef="video">
+                <mat-header-cell *matHeaderCellDef> video </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <div>
+                        <a href="https://www.youtube.com/watch?v={{element.id.videoId}}" target="_blank"
+                            style="float:left; margin: 10px">
+                            <img [src]="element.snippet.thumbnails.default.url" class="thumb" alt="thumb">
+                        </a>
+                        <h4>{{element.snippet.title}}</h4>
+                        <p>{{element.snippet.description}}</p>
+                    </div>
+                </mat-cell>
+            </ng-container>
+        </mat-table>
+
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 25]"></mat-paginator>
+
+    </mat-drawer-content>
+</mat-drawer-container>
