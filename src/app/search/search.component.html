@@ -19,8 +19,8 @@
 
             <p class="text-muted">Inform the time to expend daily during a week (in minutes):</p>
 
-            <mat-form-field class="week-field" *ngFor="let weekDay of weekDays; let i = index">
-                <mat-label>{{weekDay}}</mat-label>
+            <mat-form-field class="week-field" *ngFor="let wd of weekDay; let i = index">
+                <mat-label>{{wd}}</mat-label>
                 <input matInput min="0" max="1440" type="number" formControlName="weekDay{{i}}" (change)="onChangeWeekField()">
             </mat-form-field>
 
@@ -32,7 +32,7 @@
             </p>
 
             <div *ngIf="daysToWatch > 0">
-                <p class="text-muted">Days needed to watch all the vídeos: </p>
+                <p class="text-muted">Days needed to watch all videos returned: </p>
                 <p class="text-emphasys">{{ daysToWatch }}</p>
             </div>
         </form>

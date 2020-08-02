@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { YoutubeService } from '../shared';
@@ -13,7 +14,7 @@ import { Video } from '../shared';
 })
 export class SearchComponent implements OnInit {
 
-  weekDays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weekDay: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   daysToWatch: number = 0;
   fiveMostUsedWords: string[];
   videos: Video[];
@@ -31,15 +32,16 @@ export class SearchComponent implements OnInit {
   }
 
   private getTimeExpendDaily(): number[] {
-    let timeWeekDays: number[] = [];
+    let timesWeekDay: number[] = [];
     Object.keys(this.formTimeExpend.controls).forEach(key => {
-      timeWeekDays.push(this.formTimeExpend.get(key).value);
+      timesWeekDay.push(this.formTimeExpend.get(key).value);
     });
-    return timeWeekDays;
+    return timesWeekDay;
   }
 
   constructor(
     private fb: FormBuilder,
+    private matSnackBar : MatSnackBar,
     private youTubeService: YoutubeService) { }
 
   ngOnInit() {
@@ -69,16 +71,16 @@ export class SearchComponent implements OnInit {
   }
 
   calculateTimeExpend() {
-    let timeWeekDays: number[] = this.getTimeExpendDaily();
+    let timeWeekDay: number[] = this.getTimeExpendDaily();
     let timeTotal: number = 0;
-    timeWeekDays.forEach(element => { timeTotal += element; });
+    timeWeekDay.forEach(element => { timeTotal += element; });
 
     if (timeTotal == 0) {
-      console.log("Time total invalid.")
+      this.matSnackBar.open('ERROR: Time total must be greater than Zero.', 'Ok');
       return
     }
 
-    this.daysToWatch = Video.calculateDaysToWatch(this.videos, timeWeekDays);
+    this.daysToWatch = Video.calculateDaysToWatch(this.videos, timeWeekDay);
   }
 
 }
