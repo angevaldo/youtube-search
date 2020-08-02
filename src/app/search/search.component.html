@@ -11,7 +11,6 @@
     </form>
 </div>
 
-
 <mat-drawer-container *ngIf="videos">
     <mat-drawer mode="side" opened position="end">
 
@@ -21,7 +20,8 @@
 
             <mat-form-field class="week-field" *ngFor="let wd of weekDay; let i = index">
                 <mat-label>{{wd}}</mat-label>
-                <input matInput min="0" max="1440" type="number" formControlName="weekDay{{i}}" (change)="onChangeWeekField()">
+                <input matInput min="0" max="1440" type="number" formControlName="weekDay{{i}}"
+                    (change)="onChangeWeekField()">
             </mat-form-field>
 
             <p class="search-button">
@@ -40,8 +40,10 @@
     </mat-drawer>
     <mat-drawer-content>
 
-        <p class="most-used">Five most used words in titles and descriptions of the result: <strong>
-                {{ fiveMostUsedWords }} </strong></p>
+        <p class="most-used">
+            Five most used words in titles and descriptions of the result:
+            <strong>{{ fiveMostUsedWords }}</strong>
+        </p>
 
         <br>
 
