@@ -2,7 +2,7 @@
     <form [formGroup]="formSearch" novalidate>
         <mat-form-field class="search-field">
             <mat-label>Search term</mat-label>
-            <input matInput placeholder="Ex. The Avengers..." formControlName="term" minlength="3">
+            <input matInput placeholder="Ex. The Avengers" formControlName="term" minlength="3">
         </mat-form-field>
 
         <button mat-mini-fab [disabled]="formSearch.invalid" (click)="search()" color="primary">
@@ -11,7 +11,6 @@
     </form>
 </div>
 
-<mat-divider *ngIf="videos"></mat-divider>
 
 <mat-drawer-container *ngIf="videos">
     <mat-drawer mode="side" opened position="end">
@@ -20,27 +19,9 @@
 
             <p class="text-muted">Inform the time to expend daily during a week (in minutes):</p>
 
-            <mat-form-field class="week-field">
-                <mat-label>Sun</mat-label><input matInput min="0" type="number" (change)="onChangeWeekField()"
-                    formControlName="sun">
-            </mat-form-field>
-            <mat-form-field class="week-field">
-                <mat-label>Mon</mat-label><input matInput min="0" type="number" formControlName="mon">
-            </mat-form-field>
-            <mat-form-field class="week-field">
-                <mat-label>Tue</mat-label><input matInput min="0" type="number" formControlName="tue">
-            </mat-form-field>
-            <mat-form-field class="week-field">
-                <mat-label>Wed</mat-label><input matInput min="0" type="number" formControlName="wed">
-            </mat-form-field>
-            <mat-form-field class="week-field">
-                <mat-label>Thu</mat-label><input matInput min="0" type="number" formControlName="thu">
-            </mat-form-field>
-            <mat-form-field class="week-field">
-                <mat-label>Fri</mat-label><input matInput min="0" type="number" formControlName="fri">
-            </mat-form-field>
-            <mat-form-field class="week-field">
-                <mat-label>Sat</mat-label><input matInput min="0" type="number" formControlName="sat">
+            <mat-form-field class="week-field" *ngFor="let weekDay of weekDays; let i = index">
+                <mat-label>{{weekDay}}</mat-label>
+                <input matInput min="0" max="1440" type="number" formControlName="weekDay{{i}}" (change)="onChangeWeekField()">
             </mat-form-field>
 
             <p class="search-button">

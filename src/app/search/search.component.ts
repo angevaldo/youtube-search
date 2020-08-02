@@ -13,6 +13,7 @@ import { Video } from '../shared';
 })
 export class SearchComponent implements OnInit {
 
+  weekDays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   daysToWatch: number = 0;
   fiveMostUsedWords: string[];
   videos: Video[];
@@ -30,32 +31,32 @@ export class SearchComponent implements OnInit {
   }
 
   private getTimeExpendDaily(): number[] {
-    let data: any = this.formTimeExpend.value;
-    return [data.sun, data.mon, data.tue, data.wed, data.thu, data.fri, data.sat];
+    let timeWeekDays: number[] = [];
+    Object.keys(this.formTimeExpend.controls).forEach(key => {
+      timeWeekDays.push(this.formTimeExpend.get(key).value);
+    });
+    return timeWeekDays;
   }
 
   constructor(
-  	private fb: FormBuilder,
+    private fb: FormBuilder,
     private youTubeService: YoutubeService) { }
 
   ngOnInit() {
-  	this.formSearch = this.fb.group({
-  		term: ['', [Validators.required]]
-  	});
-  	this.formTimeExpend = this.fb.group({
-  		sun: ['', [Validators.required]],
-  		mon: ['', [Validators.required]],
-  		tue: ['', [Validators.required]],
-  		wed: ['', [Validators.required]],
-  		thu: ['', [Validators.required]],
-  		fri: ['', [Validators.required]],
-  		sat: ['', [Validators.required]]
-  	});
+    this.formSearch = this.fb.group({
+      term: ['', [Validators.required]]
+    });
+
+    let arrayFields: any = {};
+    for (let i = 0; i < 7; i++) {
+      arrayFields['weekDay' + i] = ['', [Validators.required, Validators.min(0), Validators.max(1440)]];
+    }
+    this.formTimeExpend = this.fb.group(arrayFields);
   }
 
   search() {
     this.videos = [];
-    this.youTubeService.getVideosByTermMock('Pj masks', 2).forEach(element => { 
+    this.youTubeService.getVideosByTermMock('Pj masks', 2).forEach(element => {
       this.videos.push(Video.asVideoFromYoutubeJson(element));
     });
 
@@ -68,7 +69,16 @@ export class SearchComponent implements OnInit {
   }
 
   calculateTimeExpend() {
-    this.daysToWatch = Video.calculateDaysToWatch(this.videos, this.getTimeExpendDaily());
+    let timeWeekDays: number[] = this.getTimeExpendDaily();
+    let timeTotal: number = 0;
+    timeWeekDays.forEach(element => { timeTotal += element; });
+
+    if (timeTotal == 0) {
+      console.log("Time total invalid.")
+      return
+    }
+
+    this.daysToWatch = Video.calculateDaysToWatch(this.videos, timeWeekDays);
   }
 
 }
