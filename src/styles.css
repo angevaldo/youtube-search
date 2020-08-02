@@ -3,19 +3,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.spacer {
-    flex: 1 1 auto;
-}
-
-.logo {
-    font-size: 46px;
-    height: 46px;
-    max-width: 46px;
-    min-width: 46px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
 .text-muted {
     color: #aaaaaa;
     font-size: 12px;

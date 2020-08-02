@@ -13,7 +13,7 @@ import { Video } from '../shared';
 })
 export class SearchComponent implements OnInit {
 
-  daysToExpend: number = 0;
+  daysToWatch: number = 0;
   fiveMostUsedWords: string[];
   videos: Video[];
 
@@ -29,8 +29,9 @@ export class SearchComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private getTimeDaily(): number[] {
-    return [1];
+  private getTimeExpendDaily(): number[] {
+    let data: any = this.formTimeExpend.value;
+    return [data.sun, data.mon, data.tue, data.wed, data.thu, data.fri, data.sat];
   }
 
   constructor(
@@ -53,13 +54,21 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    this.videos = this.youTubeService.getVideosByTermMock('Pj masks', 2);
+    this.videos = [];
+    this.youTubeService.getVideosByTermMock('Pj masks', 2).forEach(element => { 
+      this.videos.push(Video.asVideoFromYoutubeJson(element));
+    });
+
     this.fiveMostUsedWords = Video.calculateFiveMostUsedWords(this.videos);
     this.fillTableData();
   }
 
+  onChangeWeekField() {
+    this.daysToWatch = 0;
+  }
+
   calculateTimeExpend() {
-    this.daysToExpend = Video.calculateDaysToWatch(this.videos, this.getTimeDaily());
+    this.daysToWatch = Video.calculateDaysToWatch(this.videos, this.getTimeExpendDaily());
   }
 
 }

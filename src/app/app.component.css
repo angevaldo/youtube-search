@@ -1,0 +1,17 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+.logo {
+    font-size: 46px;
+    height: 46px;
+    max-width: 46px;
+    min-width: 46px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.app-name {
+    margin: 10px;
+    cursor: default;
+}

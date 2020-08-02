@@ -18,10 +18,11 @@
 
         <form [formGroup]="formTimeExpend" novalidate>
 
-            <p class="text-muted">Inform the time to expend daily during a week:</p>
+            <p class="text-muted">Inform the time to expend daily during a week (in minutes):</p>
 
             <mat-form-field class="week-field">
-                <mat-label>Sun</mat-label><input matInput min="0" type="number" formControlName="sun">
+                <mat-label>Sun</mat-label><input matInput min="0" type="number" (change)="onChangeWeekField()"
+                    formControlName="sun">
             </mat-form-field>
             <mat-form-field class="week-field">
                 <mat-label>Mon</mat-label><input matInput min="0" type="number" formControlName="mon">
@@ -49,14 +50,19 @@
                 </button>
             </p>
 
-            <p class="text-muted">Days needed to watch all the vídeos: </p>
-
-            <p class="text-emphasys">{{ daysToExpend }}</p>
+            <div *ngIf="daysToWatch > 0">
+                <p class="text-muted">Days needed to watch all the vídeos: </p>
+                <p class="text-emphasys">{{ daysToWatch }}</p>
+            </div>
         </form>
 
     </mat-drawer>
     <mat-drawer-content>
-        <p class="most-used">Five most used words in titles and descriptions of the result: <strong> {{ fiveMostUsedWords }} </strong></p>
+
+        <p class="most-used">Five most used words in titles and descriptions of the result: <strong>
+                {{ fiveMostUsedWords }} </strong></p>
+
+        <br>
 
         <mat-table [dataSource]="videos" matSort>
             <mat-header-row *matHeaderRowDef="['video']" style="display: none;"></mat-header-row>
@@ -66,12 +72,11 @@
                 <mat-header-cell *matHeaderCellDef> video </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <div>
-                        <a href="https://www.youtube.com/watch?v={{element.id.videoId}}" target="_blank"
-                            style="float:left; margin: 10px">
-                            <img [src]="element.snippet.thumbnails.default.url" class="thumb" alt="thumb">
+                        <a href="https://www.youtube.com/watch?v={{element.id}}" class="thumb" target="_blank">
+                            <img [src]="element.thumbnailsUrl" alt="thumb">
                         </a>
-                        <h4>{{element.snippet.title}}</h4>
-                        <p>{{element.snippet.description}}</p>
+                        <h4>{{element.title}}</h4>
+                        <p>{{element.description}}</p>
                     </div>
                 </mat-cell>
             </ng-container>
