@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { LayoutModule } from '@angular/cdk/Layout';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
