@@ -61,7 +61,7 @@
                                     height="60">
                             </a>
                             <a href="https://www.youtube.com/watch?v={{element.id}}" class="time"
-                                target="_blank">{{element.duration | number:'1.2-2'}} min</a>
+                                target="_blank">{{element.duration | number:'1.1-1'}} min</a>
                             <a href="https://www.youtube.com/watch?v={{element.id}}" class="playWrapper"
                                 target="_blank"></a>
                         </div>
@@ -77,6 +77,6 @@
     </mat-drawer-content>
 </mat-drawer-container>
 
-<div class="no-results" *ngIf="videos.length == 0">
-    Nothing to show.
+<div *ngIf="videos.length == 0">
+    <p class="no-results">Nothing to show.</p>
 </div>

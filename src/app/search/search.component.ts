@@ -84,7 +84,7 @@ export class SearchComponent implements OnInit {
   search() {
     this.resetResults();
 
-    /**/
+    /*
     this.youTubeService.getVideosByTerm(this.formSearch.value.term).subscribe(
       data => {
         for (let element of data["items"]) {
@@ -97,7 +97,7 @@ export class SearchComponent implements OnInit {
       });
     /**/
 
-    /*
+    /**/
     this.youTubeService.getVideosByTermMock(this.formSearch.value.term).forEach(element => {
       this.videos.push(Video.asVideoFromYoutubeJson(element));
     });
