@@ -24,14 +24,13 @@ export class SearchComponent implements OnInit {
   mocked: boolean = false;
 
   dataSource: MatTableDataSource<any>;
+  paginator: MatPaginator;
 
   formSearch: FormGroup;
   formTimeExpend: FormGroup;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
-  private fillTableData() {
-    this.dataSource = new MatTableDataSource<any>(this.videos);
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
     this.dataSource.paginator = this.paginator;
   }
 
@@ -47,12 +46,12 @@ export class SearchComponent implements OnInit {
     this.daysToWatch = 0;
     this.fiveMostUsedWords = [];
     this.videos = [];
-    this.fillTableData();
+    this.dataSource.data = this.videos;
   }
 
   private showResults() {
     this.fiveMostUsedWords = Video.calculateFiveMostUsedWords(this.videos);
-    this.fillTableData();
+    this.dataSource.data = this.videos;
   }
 
   private getVideosFromSampleJson() {
@@ -118,6 +117,13 @@ export class SearchComponent implements OnInit {
       timeExpendFields['weekDay' + i] = ['', [Validators.required, Validators.min(0), Validators.max(1440)]];
     }
     this.formTimeExpend = this.fb.group(timeExpendFields);
+
+    this.dataSource = new MatTableDataSource<any>(this.videos);
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+  }
+
+  onChangeWeekField() {
+    this.daysToWatch = 0;
   }
 
   search() {
@@ -133,10 +139,6 @@ export class SearchComponent implements OnInit {
     if (this.mocked) {
       this.getVideosFromSampleJson();
     }
-  }
-
-  onChangeWeekField() {
-    this.daysToWatch = 0;
   }
 
   calculateTimeExpend() {

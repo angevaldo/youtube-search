@@ -51,7 +51,7 @@
 
         <br>
 
-        <mat-table [dataSource]="videos" matSort>
+        <mat-table [dataSource]="dataSource" >
             <mat-header-row *matHeaderRowDef="['video']" style="display: none;"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ['video'];"></mat-row>
 
