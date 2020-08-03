@@ -5,20 +5,23 @@ export class Video {
     constructor(public title: string,
         public description: string,
         public thumbnailsUrl: string,
-        public duration: number,
-        public id?: string) { }
+        public id?: string,
+        public duration?: number) { }
 
     static calculateFiveMostUsedWords(videos: Video[]): string[] {
         var terms: string[] = [];
         videos.forEach(element => {
-            terms = terms.concat(element.title.split(' ')).concat(element.description.split(' '));
+            terms = terms.concat(element.title.toLocaleLowerCase().split(' '))
+                .concat(element.description.toLocaleLowerCase().split(' '));
         });
 
-        terms = CommonFunctions.sortByWordFrequency(terms);
+        var termsFiltered = terms.filter((term) => { return /^[a-zA-Z0-9\s\-\,]{2,}.\*?$/.test(term); })
+        var termsSorted = CommonFunctions.sortByWordFrequency(termsFiltered);
+
         var mostUsedWords: string[] = [];
-        var i :number = 0;
-        while (i < 5 && i < terms.length) {
-            mostUsedWords.push(terms[i]);
+        var i: number = 0;
+        while (i < 5 && i < termsSorted.length) {
+            mostUsedWords.push(termsSorted[i]);
             i++;
         }
 
@@ -54,13 +57,16 @@ export class Video {
 
             // finding a day to watch the video completely
             while (currentVideoTime > timeLeftDay) {
-                currentDay = currentDay < 7 ? currentDay + 1 : 0;
+                currentDay = currentDay == 6 ? 0 : currentDay + 1;
                 timeLeftDay = timeExpendDaily[currentDay];
                 countDayToWatch++;
             }
 
             timeLeftDay -= currentVideoTime;
+
+            console.log(currentDay, currentVideoTime, timeLeftDay, countDayToWatch)
         }
+
 
         return countDayToWatch;
     }
@@ -69,7 +75,6 @@ export class Video {
         return new Video(element.snippet.title,
             element.snippet.description,
             element.snippet.thumbnails.default.url,
-            element.duration,
             element.id.videoId);
     }
 

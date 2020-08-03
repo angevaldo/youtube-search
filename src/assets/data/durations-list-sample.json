@@ -1,0 +1,64 @@
+{
+    "items": [
+        {
+            "id": "1",
+            "contentDetails": {
+                "duration": "PT20M"
+            }
+        },
+        {
+            "id": "2",
+            "contentDetails": {
+                "duration": "PT30M"
+            }
+        },
+        {
+            "id": "3",
+            "contentDetails": {
+                "duration": "PT60M"
+            }
+        },
+        {
+            "id": "4",
+            "contentDetails": {
+                "duration": "PT90M"
+            }
+        },
+        {
+            "id": "5",
+            "contentDetails": {
+                "duration": "PT200M"
+            }
+        },
+        {
+            "id": "6",
+            "contentDetails": {
+                "duration": "PT30M"
+            }
+        },
+        {
+            "id": "7",
+            "contentDetails": {
+                "duration": "PT40M"
+            }
+        },
+        {
+            "id": "8",
+            "contentDetails": {
+                "duration": "PT20M"
+            }
+        },
+        {
+            "id": "9",
+            "contentDetails": {
+                "duration": "PT60M"
+            }
+        },
+        {
+            "id": "10",
+            "contentDetails": {
+                "duration": "PT15M"
+            }
+        }
+    ]
+}

@@ -1,13 +1,17 @@
-<div class="form-search">
+<div class="search-form">
     <form [formGroup]="formSearch" novalidate>
         <mat-form-field class="search-field">
             <mat-label>Search term</mat-label>
             <input matInput placeholder="Ex. The Avengers" formControlName="term" minlength="3">
         </mat-form-field>
 
-        <button mat-mini-fab [disabled]="formSearch.invalid" (click)="search()" color="primary">
+        <button mat-icon-button [disabled]="formSearch.invalid || mocked" (click)="search()">
             <mat-icon>search</mat-icon>
         </button>
+
+        <mat-checkbox class="mocked-checkbox" [checked]="mocked" (change)="setMocked($event.checked)">
+            mocked search
+        </mat-checkbox>
     </form>
 </div>
 
@@ -25,9 +29,9 @@
             </mat-form-field>
 
             <p class="search-button">
-                <button mat-mini-fab [disabled]="formTimeExpend.invalid" (click)="calculateTimeExpend()"
+                <button mat-raised-button [disabled]="formTimeExpend.invalid" (click)="calculateTimeExpend()"
                     color="primary">
-                    <mat-icon svgIcon="calculator"></mat-icon>
+                    Calculate
                 </button>
             </p>
 
@@ -54,18 +58,17 @@
             <ng-container matColumnDef="video">
                 <mat-header-cell *matHeaderCellDef> video </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <div class="line">
+                    <div class="video-line">
                         <div class="overlay">
                             <a href="#" class="thumb" target="_blank">
-                                <img [src]="element.thumbnailsUrl" alt="thumb" class="thumbnail" width="110"
-                                    height="60">
+                                <img [src]="element.thumbnailsUrl" alt="thumb" class="thumbnail">
                             </a>
                             <a href="https://www.youtube.com/watch?v={{element.id}}" class="time"
                                 target="_blank">{{element.duration | number:'1.1-1'}} min</a>
                             <a href="https://www.youtube.com/watch?v={{element.id}}" class="playWrapper"
                                 target="_blank"></a>
                         </div>
-                        <h4>{{element.title}}</h4>
+                        <h3>{{element.title}}</h3>
                         <p>{{element.description}}</p>
                     </div>
                 </mat-cell>

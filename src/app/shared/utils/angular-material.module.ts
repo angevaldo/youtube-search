@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 // Form Controls
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule, MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -49,6 +49,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { ProviderAst } from '@angular/compiler';
 
 const modules: any[] = [
 
@@ -97,13 +98,16 @@ const modules: any[] = [
 ];
 
 @NgModule({
-  imports: [ ...modules ],
-  exports: [ ...modules ]
+  imports: [...modules],
+  exports: [...modules],
+  providers: [
+    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check' }
+  ],
 })
 export class AngularMaterialModule {
 
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
-    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/images/mdi.svg')); 
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/images/mdi.svg'));
   }
 
 }

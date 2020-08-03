@@ -7,6 +7,9 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { YoutubeService } from '../shared';
 import { Video } from '../shared';
 
+import durationsListSample from '../../assets/data/durations-list-sample.json';
+import videosListSample from '../../assets/data/videos-list-sample.json';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -18,6 +21,7 @@ export class SearchComponent implements OnInit {
   daysToWatch: number = 0;
   fiveMostUsedWords: string[] = [];
   videos: Video[] = [];
+  mocked: boolean = false;
 
   dataSource: MatTableDataSource<any>;
 
@@ -32,38 +36,43 @@ export class SearchComponent implements OnInit {
   }
 
   private getTimeExpendDaily(): number[] {
-    let timesWeekDay: number[] = [];
+    var timesWeekDay: number[] = [];
     Object.keys(this.formTimeExpend.controls).forEach(key => {
       timesWeekDay.push(this.formTimeExpend.get(key).value);
     });
     return timesWeekDay;
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private matSnackBar: MatSnackBar,
-    private youTubeService: YoutubeService) { }
-
-  ngOnInit() {
-    this.formSearch = this.fb.group({
-      term: ['', [Validators.required]]
-    });
-
-    let timeExpendFields: any = {};
-    for (let i = 0; i < 7; i++) {
-      timeExpendFields['weekDay' + i] = ['', [Validators.required, Validators.min(0), Validators.max(1440)]];
-    }
-    this.formTimeExpend = this.fb.group(timeExpendFields);
-  }
-
   private resetResults() {
-    this.videos = [];
+    this.daysToWatch = 0;
     this.fiveMostUsedWords = [];
+    this.videos = [];
+    this.fillTableData();
   }
 
   private showResults() {
     this.fiveMostUsedWords = Video.calculateFiveMostUsedWords(this.videos);
     this.fillTableData();
+  }
+
+  private getVideosFromSampleJson() {
+    for (let element of videosListSample["items"]) {
+      this.videos.push(Video.asVideoFromYoutubeJson(element));
+    }
+    var i: number = 0;
+    for (let element of durationsListSample["items"]) {
+      this.videos[i].duration = YoutubeService.getDurationsInMinutes(element.contentDetails.duration);
+      i++;
+    }
+    this.showResults();
+
+    this.formTimeExpend.get("weekDay0").setValue(15);
+    this.formTimeExpend.get("weekDay1").setValue(120);
+    this.formTimeExpend.get("weekDay2").setValue(30);
+    this.formTimeExpend.get("weekDay3").setValue(150);
+    this.formTimeExpend.get("weekDay4").setValue(20);
+    this.formTimeExpend.get("weekDay5").setValue(40);
+    this.formTimeExpend.get("weekDay6").setValue(90);
   }
 
   private getVideosDurations() {
@@ -81,10 +90,7 @@ export class SearchComponent implements OnInit {
       });
   }
 
-  search() {
-    this.resetResults();
-
-    /*
+  private getVideosFromYoutube() {
     this.youTubeService.getVideosByTerm(this.formSearch.value.term).subscribe(
       data => {
         for (let element of data["items"]) {
@@ -95,15 +101,38 @@ export class SearchComponent implements OnInit {
       err => {
         this.matSnackBar.open(err.error.error.message, 'Ok');
       });
-    /**/
+  }
 
-    /**/
-    this.youTubeService.getVideosByTermMock(this.formSearch.value.term).forEach(element => {
-      this.videos.push(Video.asVideoFromYoutubeJson(element));
+  constructor(
+    private fb: FormBuilder,
+    private matSnackBar: MatSnackBar,
+    private youTubeService: YoutubeService) { }
+
+  ngOnInit() {
+    this.formSearch = this.fb.group({
+      term: ['', [Validators.required]]
     });
-    this.showResults();
-    /**/
 
+    var timeExpendFields: any = {};
+    for (let i = 0; i < 7; i++) {
+      timeExpendFields['weekDay' + i] = ['', [Validators.required, Validators.min(0), Validators.max(1440)]];
+    }
+    this.formTimeExpend = this.fb.group(timeExpendFields);
+  }
+
+  search() {
+    this.resetResults();
+    this.getVideosFromYoutube();
+  }
+
+  setMocked(mocked: boolean) {
+    this.mocked = mocked;
+
+    this.resetResults();
+
+    if (this.mocked) {
+      this.getVideosFromSampleJson();
+    }
   }
 
   onChangeWeekField() {
@@ -111,13 +140,13 @@ export class SearchComponent implements OnInit {
   }
 
   calculateTimeExpend() {
-    let timeWeekDay: number[] = this.getTimeExpendDaily();
-    let timeTotal: number = 0;
+    var timeWeekDay: number[] = this.getTimeExpendDaily();
+    var timeTotal: number = 0;
     timeWeekDay.forEach(element => { timeTotal += element; });
 
     try {
       if (timeTotal == 0) {
-        this.matSnackBar.open('ERROR: Time total must be greater than Zero.', 'Ok');
+        this.matSnackBar.open('Time total must be greater than Zero.', 'Ok');
       } else {
         this.daysToWatch = Video.calculateDaysToWatch(this.videos, timeWeekDay);
       }
