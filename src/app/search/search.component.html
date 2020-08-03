@@ -11,7 +11,7 @@
     </form>
 </div>
 
-<mat-drawer-container *ngIf="videos && videos.length > 0">
+<mat-drawer-container *ngIf="videos.length > 0">
     <mat-drawer mode="side" opened position="end">
 
         <form [formGroup]="formTimeExpend" novalidate>
@@ -32,7 +32,7 @@
             </p>
 
             <div *ngIf="daysToWatch > 0">
-                <p class="text-muted">Days needed to watch all videos returned: </p>
+                <p class="text-muted">Days needed to watch videos returned: </p>
                 <p class="text-emphasys">{{ daysToWatch }}</p>
             </div>
         </form>
@@ -54,14 +54,14 @@
             <ng-container matColumnDef="video">
                 <mat-header-cell *matHeaderCellDef> video </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <div>
+                    <div class="line">
                         <div class="overlay">
                             <a href="#" class="thumb" target="_blank">
                                 <img [src]="element.thumbnailsUrl" alt="thumb" class="thumbnail" width="110"
                                     height="60">
                             </a>
                             <a href="https://www.youtube.com/watch?v={{element.id}}" class="time"
-                                target="_blank">{{element.duration}} min</a>
+                                target="_blank">{{element.duration | number:'1.2-2'}} min</a>
                             <a href="https://www.youtube.com/watch?v={{element.id}}" class="playWrapper"
                                 target="_blank"></a>
                         </div>
@@ -77,6 +77,6 @@
     </mat-drawer-content>
 </mat-drawer-container>
 
-<div class="no-results" *ngIf="!videos || videos.length == 0">
-    <p>Nothing to show...</p>
+<div class="no-results" *ngIf="videos.length == 0">
+    <mat-icon svgIcon="file-find"></mat-icon>
 </div>

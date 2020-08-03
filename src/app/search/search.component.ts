@@ -16,8 +16,8 @@ export class SearchComponent implements OnInit {
 
   weekDay: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   daysToWatch: number = 0;
-  fiveMostUsedWords: string[];
-  videos: Video[];
+  fiveMostUsedWords: string[] = [];
+  videos: Video[] = [];
 
   dataSource: MatTableDataSource<any>;
 
@@ -56,27 +56,54 @@ export class SearchComponent implements OnInit {
     this.formTimeExpend = this.fb.group(timeExpendFields);
   }
 
-  search() {
+  private resetResults() {
     this.videos = [];
-    
-    /*
+    this.fiveMostUsedWords = [];
+  }
+
+  private showResults() {
+    this.fiveMostUsedWords = Video.calculateFiveMostUsedWords(this.videos);
+    this.fillTableData();
+  }
+
+  private getVideosDurations() {
+    this.youTubeService.getVideosDurations(this.videos).subscribe(
+      data => {
+        var i: number = 0;
+        for (let element of data["items"]) {
+          this.videos[i].duration = YoutubeService.getDurationsInMinutes(element.contentDetails.duration);
+          i++;
+        }
+        this.showResults();
+      },
+      err => {
+        this.matSnackBar.open(err.error.error.message, 'Ok');
+      });
+  }
+
+  search() {
+    this.resetResults();
+
+    /**/
     this.youTubeService.getVideosByTerm(this.formSearch.value.term).subscribe(
       data => {
         for (let element of data["items"]) {
-          this.videos.push(Video.asVideoFromYoutubeJson(element))
+          this.videos.push(Video.asVideoFromYoutubeJson(element));
         }
+        this.getVideosDurations();
       },
-      err => { 
-        this.matSnackBar.open(err.error.error.message, 'Ok') 
+      err => {
+        this.matSnackBar.open(err.error.error.message, 'Ok');
       });
-    */
+    /**/
 
+    /*
     this.youTubeService.getVideosByTermMock(this.formSearch.value.term).forEach(element => {
       this.videos.push(Video.asVideoFromYoutubeJson(element));
     });
+    this.showResults();
+    /**/
 
-    this.fiveMostUsedWords = Video.calculateFiveMostUsedWords(this.videos);
-    this.fillTableData();
   }
 
   onChangeWeekField() {
@@ -88,12 +115,15 @@ export class SearchComponent implements OnInit {
     let timeTotal: number = 0;
     timeWeekDay.forEach(element => { timeTotal += element; });
 
-    if (timeTotal == 0) {
-      this.matSnackBar.open('ERROR: Time total must be greater than Zero.', 'Ok');
-      return
+    try {
+      if (timeTotal == 0) {
+        this.matSnackBar.open('ERROR: Time total must be greater than Zero.', 'Ok');
+      } else {
+        this.daysToWatch = Video.calculateDaysToWatch(this.videos, timeWeekDay);
+      }
+    } catch (error) {
+      this.matSnackBar.open(error.message, 'Ok');
     }
-
-    this.daysToWatch = Video.calculateDaysToWatch(this.videos, timeWeekDay);
   }
 
 }

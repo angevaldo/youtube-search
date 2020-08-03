@@ -1,11 +1,13 @@
 export class CommonFunctions {
 
-    static sortByFrequency(elements: any[]) {
+    static sortByWordFrequency(elements: any[]) {
         let frequency = {};
         elements.forEach(function (value) { frequency[value] = 0; });
 
         let uniques = elements.filter(function (value) {
-            return ++frequency[value] == 1;
+            if (/^[a-zA-Z0-9\s\-\,]{2,}.\*?$/.test(value)) {
+                return ++frequency[value] == 1;
+            }
         });
 
         return uniques.sort(function (a, b) {

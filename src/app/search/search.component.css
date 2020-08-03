@@ -3,8 +3,19 @@ mat-drawer-container {
     background-color: white;
 }
 
-mat-drawer, mat-drawer-content, .no-results {
+mat-drawer, mat-drawer-content {
     padding: 20px; 
+}
+
+.no-results {
+    padding: 60px 20px; 
+    text-align: center;
+}
+
+.no-results mat-icon {
+    width: 150px;
+    height: 150px;
+    color: #f5f5f5;
 }
 
 mat-drawer {
@@ -13,10 +24,15 @@ mat-drawer {
 
 h4 {
     font-weight: 500;
+    width: 100%;
 }
 
 h4, p  {
     margin: 5px 2px 5px 2px;
+}
+
+.line {
+    width: 100%;
 }
 
 .overlay {

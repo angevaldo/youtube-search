@@ -14,19 +14,25 @@ export class Video {
             terms = terms.concat(element.title.split(' ')).concat(element.description.split(' '));
         });
 
-        terms = CommonFunctions.sortByFrequency(terms);
+        terms = CommonFunctions.sortByWordFrequency(terms);
+        var mostUsedWords: string[] = [];
+        var i :number = 0;
+        while (i < 5 && i < terms.length) {
+            mostUsedWords.push(terms[i]);
+            i++;
+        }
 
-        return [terms[0], terms[1], terms[2], terms[3], terms[4]];
+        return mostUsedWords;
     }
 
     static calculateDaysToWatch(videos: Video[], timeExpendDaily: number[]): number {
 
-        // getting longest time expend
+        // getting longest time expend daily
         var longestTimeExpendDaily: number = timeExpendDaily.reduce((maxTime, time) => {
             return maxTime > time ? maxTime : time;
         }, 0);
 
-        // getting video times
+        // populating video times array
         var videosTimes: number[] = [];
         videos.forEach(element => {
             if (element.duration <= longestTimeExpendDaily) {
@@ -34,8 +40,12 @@ export class Video {
             }
         });
 
+        if (videosTimes.length == 0) {
+            throw new Error('Time expend daily must be equal or greater than smallest video.');
+        }
+
         // init calculation
-        var days = 1;
+        var countDayToWatch = 1;
         var currentDay = 0;
         var timeLeftDay = timeExpendDaily[currentDay];
 
@@ -46,13 +56,13 @@ export class Video {
             while (currentVideoTime > timeLeftDay) {
                 currentDay = currentDay < 7 ? currentDay + 1 : 0;
                 timeLeftDay = timeExpendDaily[currentDay];
-                days++;
+                countDayToWatch++;
             }
 
             timeLeftDay -= currentVideoTime;
         }
 
-        return days;
+        return countDayToWatch;
     }
 
     static asVideoFromYoutubeJson(element: any): Video {
