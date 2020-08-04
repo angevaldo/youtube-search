@@ -56,7 +56,7 @@ export class SearchComponent implements OnInit {
 
   private getVideosFromSampleJson() {
     for (let element of videosListSample["items"]) {
-      this.videos.push(Video.asVideoFromYoutubeJson(element));
+      this.videos.push(YoutubeService.asVideoFromYoutubeJson(element));
     }
     var i: number = 0;
     for (let element of durationsListSample["items"]) {
@@ -93,7 +93,7 @@ export class SearchComponent implements OnInit {
     this.youTubeService.getVideosByTerm(this.formSearch.value.term).subscribe(
       data => {
         for (let element of data["items"]) {
-          this.videos.push(Video.asVideoFromYoutubeJson(element));
+          this.videos.push(YoutubeService.asVideoFromYoutubeJson(element));
         }
         this.getVideosDurations();
       },

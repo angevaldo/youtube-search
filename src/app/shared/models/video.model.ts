@@ -71,11 +71,4 @@ export class Video {
         return countDayToWatch;
     }
 
-    static asVideoFromYoutubeJson(element: any): Video {
-        return new Video(element.snippet.title,
-            element.snippet.description,
-            element.snippet.thumbnails.default.url,
-            element.id.videoId);
-    }
-
 }
