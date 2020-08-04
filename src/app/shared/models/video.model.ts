@@ -63,8 +63,6 @@ export class Video {
             }
 
             timeLeftDay -= currentVideoTime;
-
-            console.log(currentDay, currentVideoTime, timeLeftDay, countDayToWatch)
         }
 
 

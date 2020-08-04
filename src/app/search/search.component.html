@@ -36,8 +36,8 @@
             </p>
 
             <div *ngIf="daysToWatch > 0">
-                <p class="text-muted">Days needed to watch videos returned: </p>
-                <p class="text-emphasys">{{ daysToWatch }}</p>
+                <p class="text-muted">Time needed to watch videos returned: </p>
+                <p class="day-to-watch">{{ daysToWatch }} day{{daysToWatch > 1 ? 's' : ''}}</p>
             </div>
         </form>
 
