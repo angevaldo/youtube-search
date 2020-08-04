@@ -1,6 +1,18 @@
-# AhgoraYoutube
+# Youtube Search
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.4.
+
+Features:
+- Search and shows YouTube videos for a search term;
+- Shows the five most used words in titles and descriptions of the result;
+- Shows how many days are needed to watch all the vídeos returned (considering some conditions);
+
+## How to execute
+
+- Install Node.js (https://nodejs.org/)
+- Clone this project;
+- Go to project folder and run `npm install` to install the dependencies;
+- Run `ng serve` and navigate to `http://localhost:4200/`.
 
 ## Development server
 
