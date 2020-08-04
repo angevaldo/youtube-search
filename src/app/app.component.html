@@ -1,25 +1,23 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
+  <mat-toolbar color="primary" class="mat-elevation-z5 toolbar">
+    <mat-toolbar-row>
 
-    <img class="logo" src="/assets/images/play.png" alt="Youtube">
-    <span class="app-name">Youtube Search</span>
+      <img class="logo" src="/assets/images/play.png" alt="Youtube">
+      <span class="app-name">Youtube Search</span>
 
-    <span class="spacer"></span>
+      <span class="spacer"></span>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <a mat-menu-item href="https://github.com/angevaldo/youtube-search" target="_blank">
-        <mat-icon svgIcon="github"></mat-icon> Go to Github repository
-      </a>
-    </mat-menu>
-    
-  </mat-toolbar-row>
-</mat-toolbar>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item href="https://github.com/angevaldo/youtube-search" target="_blank">
+          <mat-icon svgIcon="github"></mat-icon> Go to Github repository
+        </a>
+      </mat-menu>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
 
 <div class="page-wrapper">
-
   <router-outlet></router-outlet>
-
 </div>

@@ -5,7 +5,7 @@
             <input matInput placeholder="Ex. The Avengers" formControlName="term" minlength="3">
         </mat-form-field>
 
-        <button mat-icon-button [disabled]="formSearch.invalid || mocked" (click)="search()">
+        <button mat-icon-button [disabled]="formSearch.invalid || mocked" (click)="search()" color="primary">
             <mat-icon>search</mat-icon>
         </button>
 
@@ -16,7 +16,7 @@
 </div>
 
 <mat-drawer-container *ngIf="videos.length > 0">
-    <mat-drawer mode="side" opened position="end">
+    <mat-drawer #drawer mode="side" opened position="end" class="side-nav">
 
         <form [formGroup]="formTimeExpend" novalidate>
 
@@ -36,13 +36,17 @@
             </p>
 
             <div *ngIf="daysToWatch > 0">
-                <p class="text-muted">Time needed to watch videos returned: </p>
+                <p class="text-muted">Time required to watch returned videos: </p>
                 <p class="day-to-watch">{{ daysToWatch }} day{{daysToWatch > 1 ? 's' : ''}}</p>
             </div>
         </form>
 
     </mat-drawer>
     <mat-drawer-content>
+
+        <button mat-icon-button (click)="drawer.toggle()" class="side-nav-toggle" color="primary" matTooltip="Toggle calculator">
+            <mat-icon svgIcon="calculator"></mat-icon>
+        </button>
 
         <p class="most-used">
             Five most used words in titles and descriptions of the result:
@@ -51,7 +55,7 @@
 
         <br>
 
-        <mat-table [dataSource]="dataSource" >
+        <mat-table [dataSource]="dataSource">
             <mat-header-row *matHeaderRowDef="['video']" style="display: none;"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ['video'];"></mat-row>
 

@@ -12,3 +12,17 @@
     margin: 10px;
     cursor: default;
 }
+
+.toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; 
+    z-index: 10;
+}
+
+.page-wrapper {
+    position: relative;
+    height: 100%;
+    display: block;
+    transform: inherit;
+}
