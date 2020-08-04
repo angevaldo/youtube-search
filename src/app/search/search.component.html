@@ -5,12 +5,12 @@
             <input matInput placeholder="Ex. The Avengers" formControlName="term" minlength="3">
         </mat-form-field>
 
-        <button mat-icon-button [disabled]="formSearch.invalid || mocked" (click)="search()" color="primary">
+        <button mat-mini-fab [disabled]="formSearch.invalid || mocked" (click)="search()" color="primary">
             <mat-icon>search</mat-icon>
         </button>
-
-        <mat-checkbox class="mocked-checkbox" [checked]="mocked" (change)="setMocked($event.checked)">
-            mocked search
+        
+        <mat-checkbox class="mocked-checkbox" [checked]="mocked" (change)="setMocked($event.checked)" title="Mocked search">
+            mocked
         </mat-checkbox>
     </form>
 </div>
@@ -52,8 +52,6 @@
             Five most used words in titles and descriptions of the result:
             <strong>{{ fiveMostUsedWords }}</strong>
         </p>
-
-        <br>
 
         <mat-table [dataSource]="dataSource">
             <mat-header-row *matHeaderRowDef="['video']" style="display: none;"></mat-header-row>
