@@ -9,7 +9,8 @@ Features:
 
 ## How to execute
 
-- Install Node.js (https://nodejs.org/)
+- Install Node.js (https://nodejs.org/);
+- Install angular 10: `npm install --global @angular/cli@next`;
 - Clone this project;
 - Go to project folder and run `npm install` to install the dependencies;
 - Run `ng serve` and navigate to `http://localhost:4200/`.
