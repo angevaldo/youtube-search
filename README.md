@@ -2,19 +2,22 @@
 
 [![Build Status](https://travis-ci.com/angevaldo/youtube-search.svg?branch=master)](https://travis-ci.com/angevaldo/youtube-search)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.4.
+This web app uses YouTube Data API v3 with Angular 10 to do searches on Youtube and calculate the number of days to watch all the videos returned.
 
 Features:
 - Search and shows YouTube videos for a search term;
 - Shows the five most used words in titles and descriptions of the result;
-- Shows how many days are needed to watch all the vídeos returned (considering some conditions);
+- Shows how many days are needed to watch all the videos returned (considering time spent on each day of the week and disregarding videos longer than the longest daily time);
+- Responsive design.
+
+Screen:
 
 ![print](https://github.com/angevaldo/youtube-search/blob/master/src/assets/images/print.png?raw=true)
 
 ## How to execute
 
 - Install Node.js (https://nodejs.org/);
-- Install angular 10: `npm install --global @angular/cli@next`;
+- Install Angular 10: `npm install --global @angular/cli@next`;
 - Clone this project;
 - Go to project folder and run `npm install` to install the dependencies;
 - Run `ng serve` and navigate to `http://localhost:4200/`.
