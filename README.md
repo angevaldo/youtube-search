@@ -9,6 +9,8 @@ Features:
 - Shows the five most used words in titles and descriptions of the result;
 - Shows how many days are needed to watch all the vídeos returned (considering some conditions);
 
+![print](https://github.com/angevaldo/youtube-search/blob/master/src/assets/images/print.png?raw=true)
+
 ## How to execute
 
 - Install Node.js (https://nodejs.org/);
