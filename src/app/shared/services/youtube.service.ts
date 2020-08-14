@@ -9,7 +9,7 @@ import { Video } from '../models';
 })
 export class YoutubeService {
 
-  apiKey: string = 'AIzaSyBNVlXvUw9_JkBSe0qhisDdFFzYhBnz_HQ';
+  apiKey: string = '<YOUR_API_KEY>';
   maxResults: number = 200;
 
   constructor(public http: HttpClient) { }
